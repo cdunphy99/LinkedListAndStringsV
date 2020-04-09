@@ -10,22 +10,23 @@ vector<string> validChars = {
 };
 
 
-void nextRow(list<string> theList){
-  int startSize = theList.size();
+void nextRow(list<string>* theList){
+  int startSize = theList->size();
   string workingString;
   for (int i = 0; i < startSize; i++) {
-    auto it = theList.begin();
+    auto it = theList->begin();
     advance(it, i);
     workingString = *it;
-    cout << "workingstring: " << workingString << "\n";
-    
+    *it = workingString + validChars[0];
+//    cout << "workingstring: " << workingString << "\n";
+    for(int j = 1; j < NUMVALUES; j++){
+      theList->push_back(workingString + validChars[j]);
+    }
   }
-
-
 }
 
 int main() {
-  int wordLen = 3;
+  int wordLen = 5;
   
 
   for (int i = 0; i < NUMVALUES; i++) {
@@ -34,16 +35,14 @@ int main() {
       theList.push_back(validChars[i] + validChars[j]);
     }
 
-    nextRow(theList);
-
-//    for(int j = 0; j < wordLen-2; j++) {
-//
-//    }
+    for(int j = 0; j < wordLen-2; j++) {
+      nextRow(&theList);
+    }
 
 
-//    for(auto i : theList){
-//      cout << i << " ";
-//    }
+    for(auto i : theList){
+      cout << i << " ";
+    }
   }
 
   
